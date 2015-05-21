@@ -24,7 +24,7 @@ API.on(API.ADVANCE, function(data){
 function addNotifDjChat(djName){
 	$chat = $('#chat-messages');
 	$chat.append(''+
-		'<div class="cm rsshit message rs-log-yellow">'+
+		'<div class="cm mention ">'+
 			'<div class="badge-box">'+
 				'<i class="icon icon-current-dj"></i>'+
 			'</div>'+
