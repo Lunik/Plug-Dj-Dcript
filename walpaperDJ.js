@@ -17,7 +17,7 @@ API.on(API.ADVANCE, function(data){
 });
 
 function addThumbmailChat(title,url){
-	$chat = $('#chat');
+	$chat = $('#chat-messages');
 	$chat.append(''+
 		'<div class="cm rsshit message rs-log-green">'+
 			'<div class="badge-box">'+
