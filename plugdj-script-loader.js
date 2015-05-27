@@ -32,7 +32,22 @@
         },
         c: function() {
             loaded = true;
-            $.getScript('#');
+            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/walpaperDJ.js');
+            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/notifDJ.js');
+
+            $chat = $('#chat-messages');
+            $chat.append(''+
+                '<div class="cm rsshit message rs-log-green">'+
+                    '<div class="badge-box">'+
+                        '<i class="icon icon-star-white"></i>'+
+                    '</div>'+
+                    '<div class="msg">'+
+                        '<div class="from">False_Lunik Plugin</div>'+
+                        '<div class="text">False_Lunik Plugin activé</div>'+
+                    '</div>'+
+                '</div>'+
+            '');
+            $chat.scrollTop($chat.get(0).scrollHeight);
         }
     };
     a.b();
