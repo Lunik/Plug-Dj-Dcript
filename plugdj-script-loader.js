@@ -37,12 +37,12 @@
 
             $chat = $('#chat-messages');
             $chat.append(''+
-                '<div class="cm rsshit message rs-log-green">'+
+                '<div class="cm rsshit sml message rs-log-green">'+
                     '<div class="badge-box">'+
                         '<i class="icon icon-star-white"></i>'+
                     '</div>'+
                     '<div class="msg">'+
-                        '<div class="from">False_Lunik Plugin</div>'+
+                        '<div class="from"></div>'+
                         '<div class="text">False_Lunik Plugin activé</div>'+
                     '</div>'+
                 '</div>'+
