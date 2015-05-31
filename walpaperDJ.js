@@ -1,4 +1,8 @@
 var MODE;
+var THUMBMAIL = {
+	'src': ' ',
+	'width': 0
+};
 
 API.on(API.ADVANCE, function(data){
 	changeThumbmail(data.media.title,data.media.cid);
@@ -40,37 +44,42 @@ function unhideVideo(){
 }
 
 function changeThumbmail(title,url){
+	THUMBMAIL.src = ' ';
+	THUMBMAIL.width = 0;
+	getHighResolutionThumbmail(url);
 	switch (MODE){
 		case "chat":
-			addThumbmailChat(title,url);
+			setTimeout(addThumbmailChat(title),1000);
 			break;
 		case "video":
-			addThumbmailVideo(url);
+			setTimeout(addThumbmailVideo(),1000);
 			break;
 		default:
-			addThumbmailChat(title,url);
+			setTimeout(addThumbmailChat(title),1000);
 			break;
 	}
 }
 
 function getHighResolutionThumbmail(videoid)
 {
-	var quality = ['maxresdefault','hqdefault','mqdefault'];
-	var img = new Image();
+	var quality = ['maxresdefault','hqdefault','mqdefault','0'];
+	var img;
 
 	var i;
 	for(i=0;i<quality.length;i++){
+		img = new Image();
 		img.src = "https://i.ytimg.com/vi/"+videoid+"/"+quality[i]+".jpg";
 
-		if(img.width > 120)
-			return img.src;
+		img.onload = function (){
+			if(this.width > THUMBMAIL.width){
+				THUMBMAIL.width = this.width;
+				THUMBMAIL.src = this.src;
+			}
+		};
 	}	
-
-	return "https://i.ytimg.com/vi/"+videoid+"/0.jpg";
 }
 
-function addThumbmailChat(title,url){
-	url = getHighResolutionThumbmail(url);
+function addThumbmailChat(title){
 	$chat = $('#chat-messages');
 	$chat.append(''+
 		'<div class="cm rsshit message rs-log-green" id="chat-thumbmail">'+
@@ -82,8 +91,8 @@ function addThumbmailChat(title,url){
 				'<div class="title">'+title+'</div>'+
 				'<br>'+
 				'<div class="image">'+
-					'<a href="'+url+'" target="_blank">'+
-						'<img src="'+url+'" width="90%" />'+
+					'<a href="'+THUMBMAIL.src+'" target="_blank">'+
+						'<img src="'+THUMBMAIL.src+'" width="90%" />'+
 					'</a>'+
 				'</div>'+
 			'<center>'+
@@ -96,14 +105,14 @@ function addThumbmailChat(title,url){
 	},500);
 }
 
-function addThumbmailVideo(url){
-	url = getHighResolutionThumbmail(url);
-	$('.video-thumbmail').attr("src",url);
+function addThumbmailVideo(){
+	$('.video-thumbmail').attr("src",THUMBMAIL.src);
 }
 
 function init(){
 	changeMode("video");
 	$('#room').append()
+	THUMBMAIL.src = ' ';
 }
 
 function initChatMode(){
