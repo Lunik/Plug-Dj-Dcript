@@ -47,7 +47,7 @@ function changeThumbmail(title,url){
 function addThumbmailChat(title,url){
 	$chat = $('#chat-messages');
 	$chat.append(''+
-		'<div class="cm rsshit message rs-log-green">'+
+		'<div class="cm rsshit message rs-log-green" id="chat-thumbmail">'+
 			'<div class="badge-box">'+
 				'<i class="icon icon-drag-media"></i>'+
 			'</div>'+
@@ -71,6 +71,7 @@ function addThumbmailChat(title,url){
 }
 
 function initVideoMode(){
+	initChatMode();
 	$('#playback').append('<img class="video-thumbmail">');
 	$('.video-thumbmail').css("width","100%");
 	$('.video-thumbmail').css("height","100%");
@@ -82,8 +83,6 @@ function initVideoMode(){
 function initChatMode(){
 	$('.video-thumbmail').remove();
 	unhideVideo();
-	var info = getVideoInfo();
-	addThumbmailChat(info.title,info.url);
 }
 
 function addThumbmailVideo(url){
@@ -94,7 +93,7 @@ function getVideoInfo(){
 	var data = API.getMedia();
 
 	return {
-		"title": data.media.title,
-		"url": data.media.cid
+		"title": data.title,
+		"url": data.cid
 	}
 }
