@@ -49,13 +49,19 @@ function changeThumbmail(title,url){
 	getHighResolutionThumbmail(url);
 	switch (MODE){
 		case "chat":
-			setTimeout(addThumbmailChat(title),1000);
+			setTimeout(function(){
+				addThumbmailChat(title)
+			},1000);
 			break;
 		case "video":
-			setTimeout(addThumbmailVideo(),1000);
+			setTimeout(function(){
+				addThumbmailVideo()
+			},1000);
 			break;
 		default:
-			setTimeout(addThumbmailChat(title),1000);
+			setTimeout(function(){
+				addThumbmailChat(title)
+			},1000);
 			break;
 	}
 }
