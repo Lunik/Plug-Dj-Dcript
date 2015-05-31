@@ -57,6 +57,7 @@ function getHighResolutionThumbmail(videoid)
 {
 	var quality = ['maxresdefault','hqdefault','mqdefault'];
 	var img = new Image();
+
 	var i;
 	for(i=0;i<quality.length;i++){
 		img.src = "https://i.ytimg.com/vi/"+videoid+"/"+quality[i]+".jpg";
