@@ -134,4 +134,5 @@ function initVideoMode(){
 	$('.video-thumbmail').css("width","100%");
 	$('.video-thumbmail').css("height","100%");
 	hideVideo();
+	addThumbmailVideo();
 }
