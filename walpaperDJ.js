@@ -50,17 +50,17 @@ function changeThumbmail(title,url){
 	switch (MODE){
 		case "chat":
 			setTimeout(function(){
-				addThumbmailChat(title)
+				addThumbmailChat(title);
 			},1000);
 			break;
 		case "video":
 			setTimeout(function(){
-				addThumbmailVideo()
+				addThumbmailVideo();
 			},1000);
 			break;
 		default:
 			setTimeout(function(){
-				addThumbmailChat(title)
+				addThumbmailChat(title);
 			},1000);
 			break;
 	}
@@ -116,10 +116,13 @@ function addThumbmailVideo(){
 }
 
 function init(){
-	changeMode("video");
-	$('#room').append()
 	var info = getVideoInfo();
 	getHighResolutionThumbmail(info.url);
+	setTimeout(function(){
+		changeMode("video");
+	},1000); 
+	$('#room').append()
+	var info = getVideoInfo();
 }
 
 function initChatMode(){
