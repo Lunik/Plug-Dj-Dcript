@@ -51,17 +51,15 @@ function changeThumbmail(title,url){
 		case "chat":
 			setTimeout(function(){
 				addThumbmailChat(title);
-			},1000);
+			},5000);
 			break;
 		case "video":
-			setTimeout(function(){
-				addThumbmailVideo();
-			},1000);
+			addThumbmailVideo();
 			break;
 		default:
 			setTimeout(function(){
 				addThumbmailChat(title);
-			},1000);
+			},5000);
 			break;
 	}
 }
@@ -80,6 +78,8 @@ function getHighResolutionThumbmail(videoid)
 			if(this.width > THUMBMAIL.width){
 				THUMBMAIL.width = this.width;
 				THUMBMAIL.src = this.src;
+				if(MODE == 'video')
+					addThumbmailVideo();
 			}
 		};
 	}	
