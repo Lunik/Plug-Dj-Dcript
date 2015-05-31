@@ -122,7 +122,6 @@ function init(){
 		changeMode("video");
 	},1000); 
 	$('#room').append()
-	var info = getVideoInfo();
 }
 
 function initChatMode(){
