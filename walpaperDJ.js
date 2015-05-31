@@ -112,7 +112,8 @@ function addThumbmailVideo(){
 function init(){
 	changeMode("video");
 	$('#room').append()
-	THUMBMAIL.src = ' ';
+	var info = getVideoInfo();
+	getHighResolutionThumbmail(info.url);
 }
 
 function initChatMode(){
@@ -126,6 +127,4 @@ function initVideoMode(){
 	$('.video-thumbmail').css("width","100%");
 	$('.video-thumbmail').css("height","100%");
 	hideVideo();
-	var info = getVideoInfo();
-	addThumbmailVideo(info.url);
 }
