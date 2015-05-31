@@ -1,6 +1,48 @@
+var MODE;
+
 API.on(API.ADVANCE, function(data){
-	addThumbmailChat(data.media.title,data.media.cid);
+	changeThumbmail(data.media.title,data.media.cid);
 });
+
+API.on(API.CHAT_COMMAND, function(data){
+	data = data.split(" ");
+	var cmd = data[0];
+	var param = data[1];
+	if(cmd == "/mode"){
+		changeMode(param);
+	}
+});
+
+function changeMode(mode){
+	MODE = mode;
+	if(mode == "video"){
+		initVideoMode();
+	} else {
+		initChatMode();
+	}
+}
+
+function hideVideo(){
+	$('#playback-container').css('display','none');
+}
+
+function unhideVideo(){
+	$('#playback-container').css('display','');
+}
+
+function changeThumbmail(title,url){
+	switch (MODE){
+		case "chat":
+			addThumbmailChat(title,url);
+			break;
+		case "video":
+			addThumbmailVideo(url);
+			break;
+		default:
+			addThumbmailChat(title,url);
+			break;
+	}
+}
 
 function addThumbmailChat(title,url){
 	$chat = $('#chat-messages');
@@ -28,3 +70,18 @@ function addThumbmailChat(title,url){
 	},500);
 }
 
+function initVideoMode(){
+	$('#playback').append('<img class="video-thumbmail">');
+	$('.video-thumbmail').css("width","100%");
+	$('.video-thumbmail').css("height","100%");
+	hideVideo();
+}
+
+function initChatMode(){
+	$('.video-thumbmail').remove();
+	unhideVideo();
+}
+
+function addThumbmailVideo(url){
+	$('.video-thumbmail').attr("src","https://i.ytimg.com/vi/"+url+"/maxresdefault.jpg");
+}
