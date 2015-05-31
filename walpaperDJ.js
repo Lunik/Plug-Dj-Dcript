@@ -13,6 +13,15 @@ API.on(API.CHAT_COMMAND, function(data){
 	}
 });
 
+function getVideoInfo(){
+	var data = API.getMedia();
+
+	return {
+		"title": data.title,
+		"url": data.cid
+	}
+}
+
 function changeMode(mode){
 	MODE = mode;
 	if(mode == "video"){
@@ -44,7 +53,23 @@ function changeThumbmail(title,url){
 	}
 }
 
+function getHighResolutionThumbmail(videoid)
+{
+	var quality = ['maxresdefault','hqdefault','mqdefault'];
+	var img = new Image();
+	var i;
+	for(i=0;i<quality.length;i++){
+		img.src = "https://i.ytimg.com/vi/"+videoid+"/"+quality[i]+".jpg";
+
+		if(img.width > 120)
+			return img.src;
+	}	
+
+	return "https://i.ytimg.com/vi/"+videoid+"/0.jpg";
+}
+
 function addThumbmailChat(title,url){
+	url = getHighResolutionThumbmail(url);
 	$chat = $('#chat-messages');
 	$chat.append(''+
 		'<div class="cm rsshit message rs-log-green" id="chat-thumbmail">'+
@@ -56,8 +81,8 @@ function addThumbmailChat(title,url){
 				'<div class="title">'+title+'</div>'+
 				'<br>'+
 				'<div class="image">'+
-					'<a href="https://i.ytimg.com/vi/'+url+'/maxresdefault.jpg" target="_blank">'+
-						'<img src="https://i.ytimg.com/vi/'+url+'/maxresdefault.jpg" width="90%" />'+
+					'<a href="'+url+'" target="_blank">'+
+						'<img src="'+url+'" width="90%" />'+
 					'</a>'+
 				'</div>'+
 			'<center>'+
@@ -70,6 +95,21 @@ function addThumbmailChat(title,url){
 	},500);
 }
 
+function addThumbmailVideo(url){
+	url = getHighResolutionThumbmail(url);
+	$('.video-thumbmail').attr("src",url);
+}
+
+function init(){
+	changeMode("video");
+	$('#room').append()
+}
+
+function initChatMode(){
+	$('.video-thumbmail').remove();
+	unhideVideo();
+}
+
 function initVideoMode(){
 	initChatMode();
 	$('#playback').append('<img class="video-thumbmail">');
@@ -78,22 +118,4 @@ function initVideoMode(){
 	hideVideo();
 	var info = getVideoInfo();
 	addThumbmailVideo(info.url);
-}
-
-function initChatMode(){
-	$('.video-thumbmail').remove();
-	unhideVideo();
-}
-
-function addThumbmailVideo(url){
-	$('.video-thumbmail').attr("src","https://i.ytimg.com/vi/"+url+"/maxresdefault.jpg");
-}
-
-function getVideoInfo(){
-	var data = API.getMedia();
-
-	return {
-		"title": data.title,
-		"url": data.cid
-	}
 }
