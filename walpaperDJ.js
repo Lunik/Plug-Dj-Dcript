@@ -17,6 +17,8 @@ API.on(API.CHAT_COMMAND, function(data){
 	}
 });
 
+init();
+
 function getVideoInfo(){
 	var data = API.getMedia();
 
