@@ -75,13 +75,26 @@ function initVideoMode(){
 	$('.video-thumbmail').css("width","100%");
 	$('.video-thumbmail').css("height","100%");
 	hideVideo();
+	var info = getVideoInfo();
+	addThumbmailVideo(info.url);
 }
 
 function initChatMode(){
 	$('.video-thumbmail').remove();
 	unhideVideo();
+	var info = getVideoInfo();
+	addThumbmailChat(info.title,info.url);
 }
 
 function addThumbmailVideo(url){
 	$('.video-thumbmail').attr("src","https://i.ytimg.com/vi/"+url+"/maxresdefault.jpg");
+}
+
+function getVideoInfo(){
+	var data = API.getMedia();
+
+	return {
+		"title": data.media.title,
+		"url": data.media.cid
+	}
 }
