@@ -8,16 +8,7 @@ API.on(API.ADVANCE, function(data){
 	changeThumbmail(data.media.title,data.media.cid);
 });
 
-API.on(API.CHAT_COMMAND, function(data){
-	data = data.split(" ");
-	var cmd = data[0];
-	var param = data[1];
-	if(cmd == "/mode"){
-		changeMode(param);
-	}
-});
-
-init();
+initWDJ();
 
 function getVideoInfo(){
 	var data = API.getMedia();
@@ -117,22 +108,72 @@ function addThumbmailVideo(){
 	$('.video-thumbmail').attr("src",THUMBMAIL.src);
 }
 
-function init(){
+function initWDJ(){
+	initWLButton();
 	changeMode("video");
 	var info = getVideoInfo();
 	getHighResolutionThumbmail(info.url);
 }
 
 function initChatMode(){
+	changeWLButton();
 	$('.video-thumbmail').remove();
 	unhideVideo();
 }
 
 function initVideoMode(){
 	initChatMode();
+	changeWLButton();
 	$('#playback').append('<img class="video-thumbmail">');
 	$('.video-thumbmail').css("width","100%");
 	$('.video-thumbmail').css("height","100%");
 	hideVideo();
 	addThumbmailVideo();
+}
+
+function initWLButton(){
+	$('#playback').append('<div id="WL-button">');
+	$button = $('#WL-button');
+
+	$button
+		.width(100)
+		.height(40)
+		.css('position','fixed')
+		.css('z-index','100')
+		.css('left',($('#playback').width() - $button.width()))
+		.css('top',$('.app-header').height())
+		.css('border-bottom-left-radius','5px')
+		.html('')
+		.append('<p id="WL-button" class="WL-mode">Mode '+MODE+'</p>')
+		.css('text-align','center')
+		.css('vertical-align','middle')
+		.css('cursor','pointer')
+		.css("background-color", "#009900")
+		.hover(function(){
+    		$(this).css("background-color", "#00BB00");
+    	}, function(){
+    		$(this).css("background-color", "#009900");
+    	})
+    	.on('click',function(){
+    		if(MODE == 'chat')
+    			changeMode('video');
+    		else
+    			changeMode('chat');
+    	});
+
+	$('.WL-mode')
+		.css('margin-top',$button.height()/4.5)
+		.css('font-weight','bold');
+}
+
+function changeWLButton(){
+	$button = $('#WL-button');
+
+	$button
+		.html('')
+		.append('<p id="WL-button" class="WL-mode">Mode '+MODE+'</p>');
+
+	$('.WL-mode')
+		.css('margin-top',$button.height()/4.5)
+		.css('font-weight','bold');
 }
