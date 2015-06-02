@@ -136,23 +136,26 @@ function initWLButton(){
 	$button = $('#WL-button');
 
 	$button
-		.width(100)
+		.width(110)
 		.height(40)
 		.css('position','fixed')
 		.css('z-index','100')
-		.css('left',($('#playback').width() - $button.width()))
-		.css('top',$('.app-header').height())
+		.css('left',($('#playback').width() - $button.width() + 10))
+		.css('top',($('.app-header').height() + $('#playback-controls').height()))
 		.css('border-bottom-left-radius','5px')
-		.html('')
-		.append('<p id="WL-button" class="WL-mode">Mode '+MODE+'</p>')
+		.css('border-top-left-radius','5px')
 		.css('text-align','center')
 		.css('vertical-align','middle')
 		.css('cursor','pointer')
 		.css("background-color", "#009900")
 		.hover(function(){
-    		$(this).css("background-color", "#00BB00");
+    		$(this)
+    			.css("background-color", "#00BB00")
+    			.css('left',($('#playback').width() - $button.width()));
     	}, function(){
-    		$(this).css("background-color", "#009900");
+    		$(this)
+    			.css("background-color", "#009900")
+    			.css('left',($('#playback').width() - $button.width() + 10));
     	})
     	.on('click',function(){
     		if(MODE == 'chat')
@@ -161,9 +164,7 @@ function initWLButton(){
     			changeMode('chat');
     	});
 
-	$('.WL-mode')
-		.css('margin-top',$button.height()/4.5)
-		.css('font-weight','bold');
+	changeWLButton();
 }
 
 function changeWLButton(){
@@ -175,5 +176,6 @@ function changeWLButton(){
 
 	$('.WL-mode')
 		.css('margin-top',$button.height()/4.5)
+		.css('margin-right','10px')
 		.css('font-weight','bold');
 }
