@@ -1,5 +1,4 @@
 API.on(API.ADVANCE, function(data){
-	console.log(data);
 	var myId=API.getUser().id;
 
 	if(data.dj.id == myId){
