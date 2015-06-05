@@ -3,7 +3,6 @@ var THUMBMAIL = {
 	'src': ' ',
 	'width': 0
 };
-var YOUTUBEAPIKEY = 'AIzaSyDer_m0uos5rJpyXp7QduB3_ozI7XShjSg';
 
 API.on(API.ADVANCE, function(data){
 	changeThumbmail(data.media.title,data.media.cid);
@@ -59,7 +58,7 @@ function changeThumbmail(title,url){
 }
 
 function getHighResolutionThumbnail(videoid){
-	var quality = ['maxresdefault','hqdefault','mqdefault','0'];
+	var quality = ['maxresdefault','hqdefault','mqdefault','sddefault','0','1','2','3'];
 	var img;
 
 	var i;
