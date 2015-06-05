@@ -143,6 +143,8 @@ function initWLButton(){
 		.css('top',($('.app-header').height() + $('#playback-controls').height()))
 		.css('border-bottom-left-radius','5px')
 		.css('border-top-left-radius','5px')
+		.html('')
+		.append('<p class="WL-mode">Mode '+MODE+'</p>')
 		.css('text-align','center')
 		.css('vertical-align','middle')
 		.css('cursor','pointer')
@@ -163,18 +165,15 @@ function initWLButton(){
     			changeMode('chat');
     	});
 
+    	$('.WL-mode')
+		.css('margin-top',$button.height()/4.5)
+		.css('margin-right','10px')
+		.css('font-weight','bold');
+
 	changeWLButton();
 }
 
 function changeWLButton(){
-	$button = $('#WL-button');
+	$('.WL-mode').html('').append('Mode '+MODE);
 
-	$button
-		.html('')
-		.append('<p id="WL-button" class="WL-mode">Mode '+MODE+'</p>');
-
-	$('.WL-mode')
-		.css('margin-top',$button.height()/4.5)
-		.css('margin-right','10px')
-		.css('font-weight','bold');
 }
