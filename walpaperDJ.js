@@ -58,7 +58,7 @@ function changeThumbmail(title,url){
 }
 
 function getHighResolutionThumbnail(videoid){
-	var quality = ['maxresdefault','hqdefault','mqdefault','sddefault','0','1','2','3'];
+	var quality = ['maxresdefault','hqdefault','mqdefault','sddefault','0'];
 	var img;
 
 	var i;
