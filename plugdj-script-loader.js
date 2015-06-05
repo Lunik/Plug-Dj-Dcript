@@ -32,8 +32,9 @@
         },
         c: function() {
             loaded = true;
-            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/walpaperDJ.js');
-            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/notifDJ.js');
+            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/walpaperDJ.min.js');
+            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/notifDJ.min.js');
+            $.getScript('https://rawgit.com/Lunik/Plug-Dj-Dcript/master/last-play-nightcode-331.min.js');
 
             $chat = $('#chat-messages');
             $chat.append(''+
