@@ -3,6 +3,7 @@ var THUMBMAIL = {
 	'src': ' ',
 	'width': 0
 };
+var YOUTUBEAPIKEY = 'AIzaSyDer_m0uos5rJpyXp7QduB3_ozI7XShjSg';
 
 API.on(API.ADVANCE, function(data){
 	changeThumbmail(data.media.title,data.media.cid);
@@ -39,7 +40,7 @@ function unhideVideo(){
 function changeThumbmail(title,url){
 	THUMBMAIL.src = ' ';
 	THUMBMAIL.width = 0;
-	getHighResolutionThumbmail(url);
+	getHighResolutionThumbnail(url);
 	switch (MODE){
 		case "chat":
 			setTimeout(function(){
@@ -57,25 +58,20 @@ function changeThumbmail(title,url){
 	}
 }
 
-function getHighResolutionThumbmail(videoid)
-{
-	var quality = ['maxresdefault','hqdefault','mqdefault','0'];
-	var img;
-
-	var i;
-	for(i=0;i<quality.length;i++){
-		img = new Image();
-		img.src = "https://i.ytimg.com/vi/"+videoid+"/"+quality[i]+".jpg";
-
-		img.onload = function (){
-			if(this.width > THUMBMAIL.width){
-				THUMBMAIL.width = this.width;
-				THUMBMAIL.src = this.src;
-				if(MODE == 'video')
-					addThumbmailVideo();
-			}
-		};
-	}	
+function getHighResolutionThumbnail(videoid){
+	var infoVideo = $.getJSON('https://www.googleapis.com/youtube/v3/videos?id='+videoid+'&key='+YOUTUBEAPIKEY+'&part=snippet',function(data){
+		var videoInfo = data.items[0];
+		var thumbnails = videoInfo.snippet.thumbnails;
+		
+		$.each(thumbnails, function(index, value) {
+    		if(value.width > THUMBMAIL.width){
+    			THUMBMAIL.width = value.width;
+    			THUMBMAIL.src = value.url;
+    			if(MODE == 'video')
+    				addThumbmailVideo();
+    		}
+		}); 
+	});
 }
 
 function addThumbmailChat(title){
@@ -112,7 +108,7 @@ function initWDJ(){
 	initWLButton();
 	changeMode("video");
 	var info = getVideoInfo();
-	getHighResolutionThumbmail(info.url);
+	getHighResolutionThumbnail(info.url);
 }
 
 function initChatMode(){
